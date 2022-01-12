@@ -243,7 +243,7 @@ export default class Home extends Vue {
     }
 
     this.itemList = this.itemList.concat(res);
-    target.scrollTop -= 10; // scroll 살짝 뒤로 이동
+    target.scrollTop -= 50; // scroll 살짝 뒤로 이동
   }
 
   /**
@@ -254,7 +254,8 @@ export default class Home extends Vue {
   private isBottom(el: Element) {
     const clientHeight = el.clientHeight;
     const scrollHeight = el.scrollHeight;
-    return clientHeight >= Math.round(scrollHeight - el.scrollTop);
+    console.log(clientHeight, Math.round(scrollHeight - el.scrollTop));
+    return clientHeight >= Math.round(scrollHeight - el.scrollTop) - 10;
   }
 
   /**
