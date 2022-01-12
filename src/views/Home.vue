@@ -221,7 +221,7 @@ export default class Home extends Vue {
    * Scroll 이벤트 발생 시
    * @param { Event } event 이벤트
    */
-  @Debounce(100)
+  @Debounce(250)
   private async onScroll(event: Event) {
     if (this.isEnd) {
       return;
