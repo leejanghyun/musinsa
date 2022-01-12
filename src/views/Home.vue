@@ -254,7 +254,6 @@ export default class Home extends Vue {
   private isBottom(el: Element) {
     const clientHeight = el.clientHeight;
     const scrollHeight = el.scrollHeight;
-    console.log(clientHeight, Math.round(scrollHeight - el.scrollTop));
     return clientHeight >= Math.round(scrollHeight - el.scrollTop) - 10;
   }
 
