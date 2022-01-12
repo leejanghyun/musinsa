@@ -55,11 +55,12 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 import ToggleButton from '@/components/ToggleButton.vue';
 import Button from '@/components/Button.vue';
 import Card from '@/components/Card.vue';
 import { rootStore } from '@/store';
+import { Throttle } from '@/decorators/';
 
 enum FilterTypeName {
   FEMALE = 'Female',
@@ -220,6 +221,7 @@ export default class Home extends Vue {
    * Scroll 이벤트 발생 시
    * @param { Event } event 이벤트
    */
+  @Throttle(10)
   private async onScroll(event: Event) {
     if (this.isEnd) {
       return;
