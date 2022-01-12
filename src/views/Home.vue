@@ -60,7 +60,7 @@ import ToggleButton from '@/components/ToggleButton.vue';
 import Button from '@/components/Button.vue';
 import Card from '@/components/Card.vue';
 import { rootStore } from '@/store';
-import { Throttle } from '@/decorators/';
+import { Debounce } from '@/decorator';
 
 enum FilterTypeName {
   FEMALE = 'Female',
@@ -221,11 +221,12 @@ export default class Home extends Vue {
    * Scroll 이벤트 발생 시
    * @param { Event } event 이벤트
    */
-  @Throttle(10)
+  @Debounce(100)
   private async onScroll(event: Event) {
     if (this.isEnd) {
       return;
     }
+
     const target = event.target as Element;
     const isBottom = target ? this.isBottom(target) : false;
 
@@ -243,7 +244,6 @@ export default class Home extends Vue {
     }
 
     this.itemList = this.itemList.concat(res);
-    target.scrollTop -= 50; // scroll 살짝 뒤로 이동
   }
 
   /**
@@ -254,7 +254,7 @@ export default class Home extends Vue {
   private isBottom(el: Element) {
     const clientHeight = el.clientHeight;
     const scrollHeight = el.scrollHeight;
-    return clientHeight >= Math.round(scrollHeight - el.scrollTop) - 10;
+    return clientHeight >= Math.round(scrollHeight - el.scrollTop);
   }
 
   /**
