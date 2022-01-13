@@ -234,16 +234,28 @@ export default class Home extends Vue {
       return;
     }
 
-    this.endPage = `${parseInt(this.endPage) + 1}`;
-    const items = await rootStore.requestItemList(this.endPage);
-    const res = this.getItem(items);
+    let cnt = 0;
 
-    if (!res?.length) {
-      this.isEnd = true;
-      return;
+    while(!cnt) {
+      this.endPage = `${parseInt(this.endPage) + 1}`;
+      const items = await rootStore.requestItemList(this.endPage);
+      const res = this.getItem(items);
+      const len = res?.length;
+
+      if (!len) {
+        this.isEnd = true;
+        return;
+      }
+
+      for (let i = 0; i < len; i++) {
+        const isShow = this.isShowItem(res[i]);
+
+        if (isShow) {
+          cnt++;
+        }
+      }
+      this.itemList = this.itemList.concat(res);
     }
-
-    this.itemList = this.itemList.concat(res);
   }
 
   /**
